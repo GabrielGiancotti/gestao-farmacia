@@ -1,4 +1,4 @@
-# 💊 Pharmacy Management API
+# 💊 API de Gerenciamento de Farmácia
 
 API REST desenvolvida em **C# (.NET 8)** para gestão de farmácia.  
 O sistema permite o controle de **clientes, medicamentos, fornecedores, prescrições e estoque**.
