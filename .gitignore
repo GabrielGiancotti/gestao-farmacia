@@ -1,0 +1,17 @@
+﻿################################################################################
+# Este arquivo .gitignore foi criado automaticamente pelo Microsoft(R) Visual Studio.
+################################################################################
+
+/Gestao_Farmacia/.vs/Gestao_Farmacia
+/Gestao_Farmacia/Gestao_Farmacia/bin/Debug/net8.0
+/Gestao_Farmacia/Gestao_Farmacia/obj
+/.vs
+/Gestao_Farmacia/Dados/bin/Debug/net8.0
+/Gestao_Farmacia/Dados/obj
+/Gestao_Farmacia/Dominio/obj
+/Gestao_Farmacia/Dominio/bin/Debug/net8.0
+/Gestao_Farmacia/Interface/obj
+/Gestao_Farmacia/Interface/bin/Debug/net8.0
+/Gestao_Farmacia/IOC/bin/Debug/net8.0
+/Gestao_Farmacia/IOC/obj
+/Gestao_Farmacia/Negocio/obj
