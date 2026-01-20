@@ -8,18 +8,9 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="15.0.1" />
-    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="12.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.9" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.9" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.6.2" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Controllers\" />
-    <Folder Include="Modelos\Criacao\" />
-    <Folder Include="Modelos\Atualizacao\" />
-    <Folder Include="Modelos\Filtro\" />
-    <Folder Include="Modelos\Resposta\" />
   </ItemGroup>
 
 	<ItemGroup>
@@ -27,6 +18,12 @@
 		<ProjectReference Include="..\Interface\Interface.csproj" />
 		<ProjectReference Include="..\Dados\Dados.csproj" />
 		<ProjectReference Include="..\IOC\IOC.csproj" />
+		<ProjectReference Include="..\Entidade\Entidade.csproj" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Folder Include="Modelos\Atualizacao\" />
+	  <Folder Include="Modelos\Filtro\" />
 	</ItemGroup>
 
 </Project>

@@ -1,8 +1,9 @@
 ﻿using Interface.Repositorio.Base;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dados.Entidade
+namespace Entidade
 {
+    [Table("F001_Usuario")]
     public class Usuario : EntidadeBase
     {
         public override int Codigo { get; set; }
@@ -14,19 +15,16 @@ namespace Dados.Entidade
         public required string Senha { get; set; }
         public int Codigo_Perfil { get; set; }
         public bool Ativo { get; set; }
-        public string? Genero { get; set; }
+        public int? Genero { get; set; }
         public int Tentativas_Login { get; set; }
         public DateTime? Data_Ultimo_Login { get; set; }
         public string? Crm { get; set; }
         public override int Codigo_Usuario_Criacao { get; set; }
         public override DateTime Data_Criacao { get; set; }
-        public override int Codigo_Usuario_Modificacao { get; set; }
-        public override DateTime Data_Modificacao { get; set; }
-        public override int Codigo_Usuario_Delecao { get; set; }
-        public override DateTime Data_Delecao { get; set; }
+        public override int? Codigo_Usuario_Modificacao { get; set; }
+        public override DateTime? Data_Modificacao { get; set; }
+        public override int? Codigo_Usuario_Delecao { get; set; }
+        public override DateTime? Data_Delecao { get; set; }
         public override bool Deletado { get; set; }
-
-        [NotMapped]
-        public override string Consulta => "SELECT U.* FROM F001_Usuario U WHERE U.Deletado = 0";
     }
 }

@@ -1,12 +1,10 @@
-﻿using AutoMapper;
-using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.FileProviders;
-using Microsoft.OpenApi.Models;
-using System.Globalization;
-using System.Reflection;
+﻿using Aplicacao.Mappings;
 using Dados.Contexto;
 using IOC;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
+using System.Globalization;
 
 namespace Gestao_Farmacia
 {
@@ -34,16 +32,13 @@ namespace Gestao_Farmacia
             {
                 options.UseSqlServer(Configuration.GetConnectionString("Database"));
                 options.UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
-
-
-
-
-
             }, ServiceLifetime.Transient);
 
             services.AddDependencyInjection();
 
-            services.AddAutoMapper(typeof(Startup));
+            services.AddAutoMapper(cfg => {
+                cfg.AddProfile(new Mapping());
+            });
 
             //services.AddSingleton(new MapperConfiguration(config =>
             //{

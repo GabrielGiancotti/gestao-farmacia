@@ -1,4 +1,4 @@
-﻿using Dados.Entidade;
+﻿using Entidade;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 
@@ -52,6 +52,9 @@ namespace Dados.Contexto
 
         #region Tabelas
         public virtual DbSet<Usuario> Usuario { get; set; }
+        public virtual DbSet<Endereco> Endereco { get; set; }
+        public virtual DbSet<Sessao> Sessao { get; set; }
+        public virtual DbSet<TokenApi> TokenApi { get; set; }
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -66,7 +69,7 @@ namespace Dados.Contexto
                     });
                 }
             }
-            catch (Exception ex)
+            catch (Exception)
             {
                 throw;
             }
@@ -134,6 +137,18 @@ namespace Dados.Contexto
                 entity.Property(e => e.Codigo_Usuario).HasColumnType("int").IsRequired().HasColumnName("Codigo_Usuario");
                 entity.Property(e => e.Chave).HasMaxLength(36).IsUnicode(false).IsRequired().HasColumnName("Chave");
                 entity.Property(e => e.Ip).HasMaxLength(32).IsUnicode(false).HasColumnName("Ip");
+                entity.Property(e => e.Data_Expiracao).HasColumnType("datetime2(7)").IsRequired().HasColumnName("Data_Expiracao");
+                entity.Property(e => e.Data_Criacao).HasColumnType("datetime2(7)").HasColumnName("Data_Criacao").HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<TokenApi>(entity =>
+            {
+                entity.ToTable("F011_Token_Api");
+
+                entity.Property(e => e.Codigo).HasColumnType("int").HasColumnName("Codigo");
+                entity.HasKey("Codigo");
+                entity.Property(e => e.Descricao).HasMaxLength(250).IsRequired().HasColumnName("Descricao");
+                entity.Property(e => e.Chave).HasMaxLength(36).IsUnicode(false).IsRequired().HasColumnName("Chave");
                 entity.Property(e => e.Data_Expiracao).HasColumnType("datetime2(7)").IsRequired().HasColumnName("Data_Expiracao");
                 entity.Property(e => e.Data_Criacao).HasColumnType("datetime2(7)").HasColumnName("Data_Criacao").HasDefaultValueSql("(getdate())");
             });

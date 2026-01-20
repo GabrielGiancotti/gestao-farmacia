@@ -1,12 +1,7 @@
 ﻿using Dados.Contexto;
 using Interface.Repositorio.Base;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using static System.Runtime.InteropServices.JavaScript.JSType;
+using System.Linq.Expressions;
 
 namespace Dados.Repositorio.Base
 {
@@ -14,7 +9,7 @@ namespace Dados.Repositorio.Base
     {
         private GestaoFarmaciaContexto _contexto;
 
-        public RepositorioBase(GestaoFarmaciaContexto contexto) 
+        public RepositorioBase(GestaoFarmaciaContexto contexto)
         {
             _contexto = contexto;
         }
@@ -39,46 +34,42 @@ namespace Dados.Repositorio.Base
             return dadosRetorno;
         }
 
-        public List<T> BuscarFiltrado(T objeto, string filtro, object contexto)
+        public List<T> BuscarFiltrado(Expression<Func<T, bool>> filtro, object contexto)
         {
             if (contexto != null)
                 _contexto = (GestaoFarmaciaContexto)contexto;
 
-            string consulta = $"{objeto.Consulta} AND {filtro}";
-            List<T> dadosRetorno = _contexto.Set<T>().FromSqlRaw(consulta).AsNoTracking().ToList();
+            List<T> dadosRetorno = _contexto.Set<T>().AsNoTracking().Where(filtro).ToList();
 
             return dadosRetorno;
         }
 
-        public async Task<List<T>> BuscarFiltradoAssincrono(T objeto, string filtro, object contexto)
+        public async Task<List<T>> BuscarFiltradoAssincrono(Expression<Func<T, bool>> filtro, object contexto)
         {
             if (contexto != null)
                 _contexto = (GestaoFarmaciaContexto)contexto;
 
-            string consulta = $"{objeto.Consulta} AND {filtro}";
-            List<T> dadosRetorno = await _contexto.Set<T>().FromSqlRaw(consulta).AsNoTracking().ToListAsync();
+            List<T> dadosRetorno = await _contexto.Set<T>().AsNoTracking().Where(filtro).ToListAsync();
 
             return dadosRetorno;
         }
 
-        public T BuscarFiltradoUnico(T objeto, string filtro, object contexto)
+        public T BuscarFiltradoUnico(Expression<Func<T, bool>> filtro, object contexto)
         {
             if (contexto != null)
                 _contexto = (GestaoFarmaciaContexto)contexto;
 
-            string consulta = $"{objeto.Consulta} AND {filtro}";
-            T dadosRetorno = _contexto.Set<T>().FromSqlRaw(consulta).AsNoTracking().FirstOrDefault();
+            T dadosRetorno = _contexto.Set<T>().AsNoTracking().FirstOrDefault(filtro);
 
             return dadosRetorno;
         }
 
-        public async Task<T> BuscarFiltradoUnicoAssincrono(T objeto, string filtro, object contexto)
+        public async Task<T> BuscarFiltradoUnicoAssincrono(Expression<Func<T, bool>> filtro, object contexto)
         {
             if (contexto != null)
                 _contexto = (GestaoFarmaciaContexto)contexto;
 
-            string consulta = $"{objeto.Consulta} AND {filtro}";
-            T dadosRetorno = await _contexto.Set<T>().FromSqlRaw(consulta).AsNoTracking().FirstOrDefaultAsync();
+            T dadosRetorno = await _contexto.Set<T>().AsNoTracking().FirstOrDefaultAsync(filtro);
 
             return dadosRetorno;
         }

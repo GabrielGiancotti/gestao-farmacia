@@ -1,7 +1,6 @@
 ﻿using Interface.Repositorio.Base;
-using System.ComponentModel.DataAnnotations.Schema;
 
-namespace Dados.Entidade
+namespace Entidade
 {
     public class Endereco : EntidadeBase
     {
@@ -15,13 +14,10 @@ namespace Dados.Entidade
         public string? Complemento { get; set; }
         public override int Codigo_Usuario_Criacao { get; set; }
         public override DateTime Data_Criacao { get; set; }
-        public override int Codigo_Usuario_Modificacao { get; set; }
-        public override DateTime Data_Modificacao { get; set; }
-        public override int Codigo_Usuario_Delecao { get; set; }
-        public override DateTime Data_Delecao { get; set; }
+        public override int? Codigo_Usuario_Modificacao { get; set; }
+        public override DateTime? Data_Modificacao { get; set; }
+        public override int? Codigo_Usuario_Delecao { get; set; }
+        public override DateTime? Data_Delecao { get; set; }
         public override bool Deletado { get; set; }
-
-        [NotMapped]
-        public override string Consulta => "SELECT E.* FROM F002_Usuario E WHERE E.Deletado = 0";
     }
 }

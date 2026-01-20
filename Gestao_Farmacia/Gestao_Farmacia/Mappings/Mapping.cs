@@ -1,21 +1,24 @@
-﻿using AutoMapper;
+﻿using Aplicacao.Modelos.Criacao;
+using AutoMapper;
 
-namespace Gestao_Farmacia.Mappings
+namespace Aplicacao.Mappings
 {
     public class Mapping : Profile
     {
         public Mapping() 
         {
             #region Dados -> Dominio
-            CreateMap<Dados.Entidade.Usuario, Dominio.Usuario>();
-            CreateMap<Dados.Entidade.Endereco, Dominio.Endereco>();
-            CreateMap<Dados.Entidade.Sessao, Dominio.Sessao>();
+            CreateMap<Entidade.Usuario, Dominio.Usuario>();
+            CreateMap<Entidade.Endereco, Dominio.Endereco>();
+            CreateMap<Entidade.Sessao, Dominio.Sessao>();
+            CreateMap<Entidade.TokenApi, Dominio.TokenApi>();
             #endregion
 
             #region Dominio -> Dados
-            CreateMap<Dominio.Usuario, Dados.Entidade.Usuario>();
-            CreateMap<Dominio.Endereco, Dados.Entidade.Endereco>();
-            CreateMap<Dominio.Sessao, Dados.Entidade.Sessao>();
+            CreateMap<Dominio.Usuario, Entidade.Usuario>();
+            CreateMap<Dominio.Endereco, Entidade.Endereco>();
+            CreateMap<Dominio.Sessao, Entidade.Sessao>();
+            CreateMap<Dominio.TokenApi, Entidade.TokenApi>();
             #endregion
 
             #region Dominio -> Resposta
@@ -23,7 +26,9 @@ namespace Gestao_Farmacia.Mappings
             #endregion
 
             #region Criacao -> Dominio
-
+            CreateMap<CreateUsuario, Dominio.Usuario>();
+            CreateMap<CreateUsuarioExterno, Dominio.Usuario>();
+            CreateMap<CreateUsuarioLogin, Dominio.UsuarioLogin>();
             #endregion
 
             #region Atualizacao -> Dominio
