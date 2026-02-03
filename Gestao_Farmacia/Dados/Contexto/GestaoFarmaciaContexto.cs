@@ -88,8 +88,10 @@ namespace Dados.Contexto
                 entity.Property(e => e.Nome).HasMaxLength(250).IsUnicode(false).IsRequired().HasColumnName("Nome");
                 entity.Property(e => e.Data_Nascimento).HasMaxLength(250).IsUnicode(false).HasColumnName("Data_Nascimento");
                 entity.Property(e => e.Cpf).HasMaxLength(250).IsUnicode(false).HasColumnName("Cpf");
+                entity.Property(e => e.Cpf_Hash).HasMaxLength(250).IsUnicode(false).HasColumnName("Cpf_Hash");
                 entity.Property(e => e.Telefone).HasMaxLength(250).IsUnicode(false).HasColumnName("Telefone");
                 entity.Property(e => e.Email).HasMaxLength(250).IsUnicode(false).IsRequired().HasColumnName("Email");
+                entity.Property(e => e.Email_Hash).HasMaxLength(250).IsUnicode(false).IsRequired().HasColumnName("Email_Hash");
                 entity.Property(e => e.Senha).HasMaxLength(250).IsUnicode(false).IsRequired().HasColumnName("Senha");
                 entity.Property(e => e.Codigo_Perfil).HasColumnType("int").IsRequired().HasColumnName("Codigo_Perfil");
                 entity.Property(e => e.Ativo).HasColumnType("bit").IsRequired().HasColumnName("Ativo");

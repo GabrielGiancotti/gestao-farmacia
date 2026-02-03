@@ -10,8 +10,10 @@ namespace Entidade
         public required string Nome { get; set; }
         public string? Data_Nascimento { get; set; }
         public string? Cpf { get; set; }
+        public string? Cpf_Hash { get; set; }
         public string? Telefone { get; set; }
         public required string Email { get; set; }
+        public required string Email_Hash { get; set; }
         public required string Senha { get; set; }
         public int Codigo_Perfil { get; set; }
         public bool Ativo { get; set; }

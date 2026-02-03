@@ -14,54 +14,15 @@ namespace Negocio.Util
 
         public string GerarHash(string texto)
         {
-            string textoNumerosAleatorios = GerarNumerosAleatorios(16);
-            var textoBytes = Encoding.UTF8.GetBytes(texto + textoNumerosAleatorios);
+            var textoBytes = Encoding.UTF8.GetBytes(texto);
 
             using (var sha256 = SHA256.Create())
             {
                 var hashBytes = sha256.ComputeHash(textoBytes);
                 var hashBase64 = Convert.ToBase64String(hashBytes);
                 
-                return $"{hashBase64}:{textoNumerosAleatorios}";
+                return hashBase64;
             }
-        }
-
-        public bool VerificarHash(string texto, string hash)
-        {
-            try
-            {
-                var arrayHash = hash.Split(':');
-                if (arrayHash.Length != 2) 
-                    return false;
-
-                var hashArmazenado = arrayHash[0];
-                var textoHash = arrayHash[1];
-
-                var textoBytes = Encoding.UTF8.GetBytes(texto + textoHash);
-
-                using (var sha256 = SHA256.Create())
-                {
-                    var hashBytes = sha256.ComputeHash(textoBytes);
-                    var novoHash = Convert.ToBase64String(hashBytes);
-
-                    return novoHash == hashArmazenado;
-                }
-            }
-            catch
-            {
-                return false;
-            }
-        }
-
-        private string GerarNumerosAleatorios(int tamanho)
-        {
-            byte[] arrayBytes = new byte[tamanho];
-            using (var rng = RandomNumberGenerator.Create())
-            {
-                rng.GetBytes(arrayBytes);
-            }
-
-            return Convert.ToBase64String(arrayBytes);
         }
 
         public string CriptografarTexto(string texto)

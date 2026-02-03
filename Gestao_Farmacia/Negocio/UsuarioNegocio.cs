@@ -89,7 +89,7 @@ namespace Negocio
         {
             try
             {
-                string emailCriptografado = _criptografiaServico.GerarHash(email);
+                string emailCriptografado = _criptografiaServico.GerarHash(email.Trim().ToLower());
 
                 bool resultado = await _usuarioRepositorio.ExisteEmailAsync(codigo, emailCriptografado, _contexto);
 
@@ -105,7 +105,7 @@ namespace Negocio
         {
             try
             {
-                string cpfCriptografado = _criptografiaServico.GerarHash(cpf);
+                string cpfCriptografado = _criptografiaServico.GerarHash(cpf.Trim().ToLower());
 
                 bool resultado = await _usuarioRepositorio.ExisteCpfAsync(codigo, cpfCriptografado, _contexto);
 
@@ -183,14 +183,19 @@ namespace Negocio
 
         private Dominio.Usuario TratarDadosUsuario(Dominio.Usuario usuario)
         {
+            string emailTratado = usuario.Email.Trim().ToLower();
+            string cpfTratado = string.IsNullOrEmpty(usuario.Cpf) ? null : usuario.Cpf.Trim().ToLower();
+
             Dominio.Usuario usuarioTratado = new Dominio.Usuario()
             {
                 Codigo = usuario.Codigo,
                 Nome = _criptografiaServico.CriptografarTexto(usuario.Nome),
                 Data_Nascimento = string.IsNullOrEmpty(usuario.Data_Nascimento) ? null : _criptografiaServico.CriptografarTexto(usuario.Data_Nascimento),
-                Cpf = string.IsNullOrEmpty(usuario.Cpf) ? null : _criptografiaServico.CriptografarTexto(usuario.Cpf),
+                Cpf = string.IsNullOrEmpty(cpfTratado) ? null : _criptografiaServico.CriptografarTexto(cpfTratado),
+                Cpf_Hash = string.IsNullOrEmpty(cpfTratado) ? null : _criptografiaServico.GerarHash(cpfTratado),
                 Telefone = string.IsNullOrEmpty(usuario.Telefone) ? null : _criptografiaServico.CriptografarTexto(usuario.Telefone),
-                Email = _criptografiaServico.CriptografarTexto(usuario.Email),
+                Email = _criptografiaServico.CriptografarTexto(emailTratado),
+                Email_Hash = _criptografiaServico.GerarHash(emailTratado),
                 Senha = _criptografiaServico.GerarHash(usuario.Senha),
                 Codigo_Perfil = usuario.Codigo_Perfil,
                 Ativo = usuario.Ativo,

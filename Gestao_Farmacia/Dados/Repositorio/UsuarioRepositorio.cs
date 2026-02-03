@@ -48,9 +48,9 @@ namespace Dados.Repositorio
                 bool retorno = true;
 
                 if (codigo != null && codigo.Value > 0)
-                    retorno = await _usuarioReposBase.BuscarFiltradoUnicoAssincrono(u =>  u.Codigo != codigo && string.Equals(u.Email, email), _contexto) != null;
+                    retorno = await _usuarioReposBase.BuscarFiltradoUnicoAssincrono(u =>  u.Codigo != codigo && string.Equals(u.Email_Hash, email), _contexto) != null;
                 else
-                    retorno = await _usuarioReposBase.BuscarFiltradoUnicoAssincrono(u => string.Equals(u.Email, email), _contexto) != null;
+                    retorno = await _usuarioReposBase.BuscarFiltradoUnicoAssincrono(u => string.Equals(u.Email_Hash, email), _contexto) != null;
 
                 return retorno;
             }
@@ -70,9 +70,9 @@ namespace Dados.Repositorio
                 bool retorno = true;
 
                 if (codigo != null && codigo.Value > 0)
-                    retorno = await _usuarioReposBase.BuscarFiltradoUnicoAssincrono(u => u.Codigo != codigo && string.Equals(u.Cpf, cpf), _contexto) != null;
+                    retorno = await _usuarioReposBase.BuscarFiltradoUnicoAssincrono(u => u.Codigo != codigo && string.Equals(u.Cpf_Hash, cpf), _contexto) != null;
                 else
-                    retorno = await _usuarioReposBase.BuscarFiltradoUnicoAssincrono(u => string.Equals(u.Cpf, cpf), _contexto) != null;
+                    retorno = await _usuarioReposBase.BuscarFiltradoUnicoAssincrono(u => string.Equals(u.Cpf_Hash, cpf), _contexto) != null;
 
                 return retorno;
             }

@@ -27,19 +27,19 @@ namespace Dados.Repositorio
                 _contexto = (GestaoFarmaciaContexto)contexto;
 
             Dominio.UsuarioLoginResposta usuarioRetorno = await (from u in _contexto.Usuario
-                                                    where u.Email == email && u.Senha == senha && u.Ativo && u.Deletado
-                                                    select new Dominio.UsuarioLoginResposta
-                                                    {
-                                                        Codigo = u.Codigo,
-                                                        Nome = u.Nome,
-                                                        Email = u.Email,
-                                                        Codigo_Perfil = u.Codigo_Perfil,
-                                                        Ativo = u.Ativo,
-                                                        Data_Ultimo_Login = u.Data_Ultimo_Login,
-                                                        Crm = u.Crm,
-                                                        Chave = null,
-                                                        Data_Expiracao_Chave = null
-                                                    }).FirstOrDefaultAsync();
+                                                                 where u.Email_Hash == email && u.Senha == senha && u.Ativo && u.Deletado
+                                                                 select new Dominio.UsuarioLoginResposta
+                                                                 {
+                                                                     Codigo = u.Codigo,
+                                                                     Nome = u.Nome,
+                                                                     Email = u.Email,
+                                                                     Codigo_Perfil = u.Codigo_Perfil,
+                                                                     Ativo = u.Ativo,
+                                                                     Data_Ultimo_Login = u.Data_Ultimo_Login,
+                                                                     Crm = u.Crm,
+                                                                     Chave = null,
+                                                                     Data_Expiracao_Chave = null
+                                                                 }).FirstOrDefaultAsync();
 
             return usuarioRetorno;
         }
