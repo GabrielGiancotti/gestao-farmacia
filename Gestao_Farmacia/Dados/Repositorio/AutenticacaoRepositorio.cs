@@ -27,7 +27,7 @@ namespace Dados.Repositorio
                 _contexto = (GestaoFarmaciaContexto)contexto;
 
             Dominio.UsuarioLoginResposta usuarioRetorno = await (from u in _contexto.Usuario
-                                                                 where u.Email_Hash == email && u.Senha == senha && u.Ativo && u.Deletado
+                                                                 where u.Email_Hash == email && u.Senha == senha && u.Ativo && !u.Deletado
                                                                  select new Dominio.UsuarioLoginResposta
                                                                  {
                                                                      Codigo = u.Codigo,

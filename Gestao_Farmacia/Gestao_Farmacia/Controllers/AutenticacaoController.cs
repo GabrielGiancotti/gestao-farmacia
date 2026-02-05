@@ -27,7 +27,6 @@ namespace Gestao_Farmacia.Controllers
         /// <summary>
         /// Válida os dados de acesso do usuário, e caso os dados estejam corretos, o login é realizado.
         /// </summary>
-        /// <param name="token">Token necessário para validação.</param>
         /// <param name="dadosLogin">Objeto que contém todos os campos necessário para realizar o login de um usuário já existente.</param>
         /// <returns>IActionResult</returns>
         /// <response code="201">Caso os dados sejam inseridos com sucesso.</response>
@@ -39,7 +38,7 @@ namespace Gestao_Farmacia.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Resposta<object>>> LoginAsync([FromHeader] string token, [FromBody] CreateUsuarioLogin dadosLogin)
+        public async Task<ActionResult<Resposta<object>>> LoginAsync([FromBody] CreateUsuarioLogin dadosLogin)
         {
             try
             {

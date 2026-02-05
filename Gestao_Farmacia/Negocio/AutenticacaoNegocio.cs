@@ -48,8 +48,8 @@ namespace Negocio
 
             try
             {
-                string emailCriptografado = _criptografiaServico.CriptografarTexto(dadosLogin.Email);
-                string senhaCriptografada = _criptografiaServico.GerarHash(emailCriptografado);
+                string emailCriptografado = _criptografiaServico.GerarHash(dadosLogin.Email);
+                string senhaCriptografada = _criptografiaServico.GerarHash(dadosLogin.Senha);
 
                 var respostaLogin = await _autenticacaoRepositorio.LoginAsync(emailCriptografado, senhaCriptografada, _contexto);
                 if (respostaLogin != null)
@@ -78,6 +78,11 @@ namespace Negocio
                 }
 
                 throw new NegocioException("Email e/ou senha inválidos.");
+            }
+            catch (NegocioException ex)
+            {
+                _logger.LogError(ex, $"Mensagem de erro tratado para o e-mail: {dadosLogin.Email}.");
+                throw;
             }
             catch (Exception ex)
             {

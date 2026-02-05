@@ -63,22 +63,38 @@
         /// <summary>
         /// Código do usuário que realizou o login.
         /// </summary>
-        public int Codigo_Usuario { get; set; }
+        public int Codigo { get; set; }
         /// <summary>
         /// Nome do usuário que realizou o login.
         /// </summary>
-        public required string Nome_Usuario { get; set; }
+        public required string Nome { get; set; }
+        /// <summary>
+        /// Email do usuário que realizou o login.
+        /// </summary>
+        public required string Email { get; set; }
+        /// <summary>
+        /// Código do perfil do usuário que realizou o login.
+        /// </summary>
+        public int Codigo_Perfil { get; set; }
+        /// <summary>
+        /// Situação do usuário que realizou o login.
+        /// </summary>
+        public bool Ativo { get; set; }
+        /// <summary>
+        /// Data em que foi feito o último login do usuário.
+        /// </summary>
+        public DateTime? Data_Ultimo_Login { get; set; }
+        /// <summary>
+        /// Crm do usuário que realizou o login.
+        /// </summary>
+        public string? Crm { get; set; }
         /// <summary>
         /// Chave(GUID) gerada na conclusão do login do usuário.
         /// </summary>
         public required string Chave { get; set; }
         /// <summary>
-        /// Data de criação da chave que será utilizada pelo usuário.
-        /// </summary>
-        public required DateTime Data_Criacao { get; set; }
-        /// <summary>
         /// Data de expiração da chave que será utilizada pelo usuário.
         /// </summary>
-        public required DateTime Data_Expiracao { get; set; }
+        public DateTime? Data_Expiracao_Chave { get; set; }
     }
 }

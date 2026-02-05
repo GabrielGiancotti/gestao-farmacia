@@ -1,4 +1,6 @@
 ﻿using Aplicacao.Modelos.Criacao;
+using Aplicacao.Modelos.Resposta;
+using Aplicacao.Modelos.Resposta.Base;
 using AutoMapper;
 
 namespace Aplicacao.Mappings
@@ -22,7 +24,7 @@ namespace Aplicacao.Mappings
             #endregion
 
             #region Dominio -> Resposta
-
+            CreateMap<Dominio.UsuarioLoginResposta, UsuarioLoginResposta>();
             #endregion
 
             #region Criacao -> Dominio
