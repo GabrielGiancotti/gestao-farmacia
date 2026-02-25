@@ -13,11 +13,13 @@ namespace Dados.Repositorio
     {
         private GestaoFarmaciaContexto _contexto;
         private readonly IRepositorioBase<Entidade.TokenApi> _tokenApiReposBase;
+        private readonly IRepositorioBase<Entidade.Usuario> _usuarioReposBase;
 
-        public AutenticacaoRepositorio(GestaoFarmaciaContexto contexto, IRepositorioBase<Entidade.TokenApi> tokenApiReposBase)
+        public AutenticacaoRepositorio(GestaoFarmaciaContexto contexto, IRepositorioBase<Entidade.TokenApi> tokenApiReposBase, IRepositorioBase<Entidade.Usuario> usuarioReposBase)
         {
             _contexto = contexto;
             _tokenApiReposBase = tokenApiReposBase;
+            _usuarioReposBase = usuarioReposBase;
         }
 
         #region Inserção
@@ -26,20 +28,33 @@ namespace Dados.Repositorio
             if (contexto != null)
                 _contexto = (GestaoFarmaciaContexto)contexto;
 
-            Dominio.UsuarioLoginResposta usuarioRetorno = await (from u in _contexto.Usuario
-                                                                 where u.Email_Hash == email && u.Senha == senha && u.Ativo && !u.Deletado
-                                                                 select new Dominio.UsuarioLoginResposta
-                                                                 {
-                                                                     Codigo = u.Codigo,
-                                                                     Nome = u.Nome,
-                                                                     Email = u.Email,
-                                                                     Codigo_Perfil = u.Codigo_Perfil,
-                                                                     Ativo = u.Ativo,
-                                                                     Data_Ultimo_Login = u.Data_Ultimo_Login,
-                                                                     Crm = u.Crm,
-                                                                     Chave = null,
-                                                                     Data_Expiracao_Chave = null
-                                                                 }).FirstOrDefaultAsync();
+            Dominio.UsuarioLoginResposta usuarioRetorno = null;
+
+            Entidade.Usuario dadoUsuario = await (from u in _contexto.Usuario
+                                                  where u.Email_Hash == email && u.Senha == senha && u.Ativo && !u.Deletado
+                                                  select u).FirstOrDefaultAsync();
+
+            if (dadoUsuario == null)
+                return null;
+
+            dadoUsuario.Data_Ultimo_Login = DateTime.Now;
+
+            bool retornoAtualizacaoUsuario = await _usuarioReposBase.AtualizarAssincrono(dadoUsuario, _contexto);
+            if (!retornoAtualizacaoUsuario)
+                return null;
+
+            usuarioRetorno = new Dominio.UsuarioLoginResposta
+            {
+                Codigo = dadoUsuario.Codigo,
+                Nome = dadoUsuario.Nome,
+                Email = dadoUsuario.Email,
+                Codigo_Perfil = dadoUsuario.Codigo_Perfil,
+                Ativo = dadoUsuario.Ativo,
+                Data_Ultimo_Login = dadoUsuario.Data_Ultimo_Login,
+                Crm = dadoUsuario.Crm,
+                Chave = null,
+                Data_Expiracao_Chave = null
+            };
 
             return usuarioRetorno;
         }
