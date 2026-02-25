@@ -8,6 +8,7 @@
 
         #region Validações
         Task<bool> ValidarTokenExternoAsync(string token, object? contexto = null);
+        Task<bool> ValidarTokenAsync(string token, object? contexto = null);
         #endregion
     }
 }

@@ -132,6 +132,20 @@ namespace Negocio
 
             return true;
         }
+
+        public async Task<bool> ValidarTokenAsync(string token)
+        {
+            try
+            {
+                bool resultado = await _autenticacaoRepositorio.ValidarTokenAsync(token, _contexto);
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw new NegocioException(ex.Message, ex);
+            }
+        }
         #endregion
     }
 }

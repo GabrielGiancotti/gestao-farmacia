@@ -36,41 +36,43 @@ namespace Gestao_Farmacia
 
             services.AddDependencyInjection();
 
-            services.AddAutoMapper(cfg => {
+            services.AddAutoMapper(cfg =>
+            {
                 cfg.AddProfile(new Mapping());
             });
 
-            //services.AddSingleton(new MapperConfiguration(config =>
-            //{
-            //    #region Dados -> Dominio
-            //    config.CreateMap<Dados.Entidade.Usuario, Dominio.Usuario>();
-            //    config.CreateMap<Dados.Entidade.Endereco, Dominio.Endereco>();
-            //    config.CreateMap<Dados.Entidade.Sessao, Dominio.Sessao>();
-            //    #endregion
-
-            //    #region Dominio -> Dados
-            //    config.CreateMap<Dominio.Usuario, Dados.Entidade.Usuario>();
-            //    config.CreateMap<Dominio.Endereco, Dados.Entidade.Endereco>();
-            //    config.CreateMap<Dominio.Sessao, Dados.Entidade.Sessao>();
-            //    #endregion
-
-            //    #region Dominio -> Resposta
-
-            //    #endregion
-
-            //    #region Criacao -> Dominio
-
-            //    #endregion
-
-            //    #region Atualizacao -> Dominio
-
-            //    #endregion
-
-            //}).CreateMapper());
-
             services.AddSwaggerGen(c =>
             {
-                c.SwaggerDoc("v1", new OpenApiInfo { Title = "SistemaGestaoFarmacia", Version = "v1" });
+                c.SwaggerDoc("v1", new OpenApiInfo
+                {
+                    Title = "SistemaGestaoFarmacia",
+                    Version = "v1"
+                });
+
+                c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
+                {
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer",
+                    BearerFormat = "Token",
+                    In = ParameterLocation.Header,
+                    Description = "Digite: Bearer {seu_token}"
+                });
+
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                   {
+                      new OpenApiSecurityScheme
+                      {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                      }, Array.Empty<string>()
+                   }
+                });
+
                 //var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
                 //var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 //c.IncludeXmlComments(xmlPath);

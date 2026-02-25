@@ -14,12 +14,14 @@ namespace Dados.Repositorio
         private GestaoFarmaciaContexto _contexto;
         private readonly IRepositorioBase<Entidade.TokenApi> _tokenApiReposBase;
         private readonly IRepositorioBase<Entidade.Usuario> _usuarioReposBase;
+        private readonly IRepositorioBase<Entidade.Sessao> _sessaoReposBase;
 
-        public AutenticacaoRepositorio(GestaoFarmaciaContexto contexto, IRepositorioBase<Entidade.TokenApi> tokenApiReposBase, IRepositorioBase<Entidade.Usuario> usuarioReposBase)
+        public AutenticacaoRepositorio(GestaoFarmaciaContexto contexto, IRepositorioBase<Entidade.TokenApi> tokenApiReposBase, IRepositorioBase<Entidade.Usuario> usuarioReposBase, IRepositorioBase<Entidade.Sessao> sessaoReposBase)
         {
             _contexto = contexto;
             _tokenApiReposBase = tokenApiReposBase;
             _usuarioReposBase = usuarioReposBase;
+            _sessaoReposBase = sessaoReposBase;
         }
 
         #region Inserção
@@ -72,6 +74,27 @@ namespace Dados.Repositorio
 
                 var tokenValidacaoExterno = await _tokenApiReposBase.BuscarFiltradoUnicoAssincrono(t => t.Descricao.Equals("Cadastro Usuario Externo"), _contexto);
                 if (tokenValidacaoExterno != null && tokenValidacaoExterno.Chave.Equals(token))
+                    retorno = true;
+
+                return retorno;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> ValidarTokenAsync(string token, object? contexto = null)
+        {
+            if (contexto != null)
+                _contexto = (GestaoFarmaciaContexto)contexto;
+
+            try
+            {
+                bool retorno = false;
+
+                var tokenValidacao = await _sessaoReposBase.BuscarFiltradoUnicoAssincrono(s => s.Chave.Equals(token) && DateTime.Now <= s.Data_Expiracao, _contexto);
+                if (tokenValidacao != null)
                     retorno = true;
 
                 return retorno;
