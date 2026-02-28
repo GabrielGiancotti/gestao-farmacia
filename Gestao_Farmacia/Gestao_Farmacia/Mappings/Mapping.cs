@@ -14,6 +14,8 @@ namespace Aplicacao.Mappings
             CreateMap<Entidade.Endereco, Dominio.Endereco>();
             CreateMap<Entidade.Sessao, Dominio.Sessao>();
             CreateMap<Entidade.TokenApi, Dominio.TokenApi>();
+            CreateMap<Entidade.Perfil, Dominio.Perfil>();
+            CreateMap<Entidade.Permissao, Dominio.Permissao>();
             #endregion
 
             #region Dominio -> Dados
@@ -21,6 +23,8 @@ namespace Aplicacao.Mappings
             CreateMap<Dominio.Endereco, Entidade.Endereco>();
             CreateMap<Dominio.Sessao, Entidade.Sessao>();
             CreateMap<Dominio.TokenApi, Entidade.TokenApi>();
+            CreateMap<Dominio.Perfil, Entidade.Perfil>();
+            CreateMap<Dominio.Permissao, Entidade.Permissao>();
             #endregion
 
             #region Dominio -> Resposta

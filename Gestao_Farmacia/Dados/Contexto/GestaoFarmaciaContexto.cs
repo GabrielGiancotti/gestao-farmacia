@@ -55,6 +55,8 @@ namespace Dados.Contexto
         public virtual DbSet<Endereco> Endereco { get; set; }
         public virtual DbSet<Sessao> Sessao { get; set; }
         public virtual DbSet<TokenApi> TokenApi { get; set; }
+        public virtual DbSet<Perfil> Perfil { get; set; }
+        public virtual DbSet<Permissao> Permissao { get; set; }
         #endregion
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -153,6 +155,41 @@ namespace Dados.Contexto
                 entity.Property(e => e.Chave).HasMaxLength(36).IsUnicode(false).IsRequired().HasColumnName("Chave");
                 entity.Property(e => e.Data_Expiracao).HasColumnType("datetime2(7)").IsRequired().HasColumnName("Data_Expiracao");
                 entity.Property(e => e.Data_Criacao).HasColumnType("datetime2(7)").HasColumnName("Data_Criacao").HasDefaultValueSql("(getdate())");
+            });
+
+            modelBuilder.Entity<Perfil>(entity =>
+            {
+                entity.ToTable("F012_Perfil");
+
+                entity.Property(e => e.Codigo).HasColumnType("int").HasColumnName("Codigo");
+                entity.HasKey("Codigo");
+                entity.Property(e => e.Nome).HasMaxLength(250).IsUnicode(false).IsRequired().HasColumnName("Nome");
+                entity.Property(e => e.Codigo_Usuario_Criacao).HasColumnType("int").IsRequired().HasColumnName("Codigo_Usuario_Criacao");
+                entity.Property(e => e.Data_Criacao).HasColumnType("datetime2(7)").IsRequired().HasColumnName("Data_Criacao").HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Codigo_Usuario_Modificacao).HasColumnType("int").HasColumnName("Codigo_Usuario_Modificacao");
+                entity.Property(e => e.Data_Modificacao).HasColumnType("datetime2(7)").HasColumnName("Data_Modificacao");
+                entity.Property(e => e.Codigo_Usuario_Delecao).HasColumnType("int").HasColumnName("Codigo_Usuario_Delecao");
+                entity.Property(e => e.Data_Delecao).HasColumnType("datetime2(7)").HasColumnName("Data_Delecao");
+                entity.Property(e => e.Deletado).HasColumnType("bit").HasColumnName("Deletado");
+            });
+
+            modelBuilder.Entity<Permissao>(entity =>
+            {
+                entity.ToTable("F013_Permissao");
+
+                entity.Property(e => e.Codigo).HasColumnType("int").HasColumnName("Codigo");
+                entity.HasKey("Codigo");
+                entity.Property(e => e.Codigo_Perfil).HasColumnType("int").IsRequired().HasColumnName("Codigo_Perfil");
+                entity.Property(e => e.Recurso).HasMaxLength(250).IsUnicode(false).IsRequired().HasColumnName("Recurso");
+                entity.Property(e => e.Acao).HasMaxLength(250).IsUnicode(false).IsRequired().HasColumnName("Acao");
+                entity.Property(e => e.Permitido).HasColumnType("bit").IsRequired().HasColumnName("Permitido");
+                entity.Property(e => e.Codigo_Usuario_Criacao).HasColumnType("int").IsRequired().HasColumnName("Codigo_Usuario_Criacao");
+                entity.Property(e => e.Data_Criacao).HasColumnType("datetime2(7)").IsRequired().HasColumnName("Data_Criacao").HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Codigo_Usuario_Modificacao).HasColumnType("int").HasColumnName("Codigo_Usuario_Modificacao");
+                entity.Property(e => e.Data_Modificacao).HasColumnType("datetime2(7)").HasColumnName("Data_Modificacao");
+                entity.Property(e => e.Codigo_Usuario_Delecao).HasColumnType("int").HasColumnName("Codigo_Usuario_Delecao");
+                entity.Property(e => e.Data_Delecao).HasColumnType("datetime2(7)").HasColumnName("Data_Delecao");
+                entity.Property(e => e.Deletado).HasColumnType("bit").HasColumnName("Deletado");
             });
 
             OnModelCreatingPartial(modelBuilder);
