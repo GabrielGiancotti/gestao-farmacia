@@ -106,8 +106,10 @@ namespace Gestao_Farmacia.Controllers
         }
 
         /// <summary>
-        /// Valida se o token informado é válido.
+        /// Valida se o token informado é válido e se o usuário vinculado ao mesmo possui permissão para acessar o recurso informado.
         /// </summary>
+        /// <param name="recurso">Nome do recurso que será verificado a permissão.</param>
+        /// <param name="acao">Ação do usuário que será verificado a permissão.</param>
         /// <returns>IActionResult</returns>
         /// <response code="200">Caso o token seja validado com sucesso.</response>
         /// <response code="400">Caso tenha tido algum problema durante a validação do token.</response>
@@ -117,8 +119,9 @@ namespace Gestao_Farmacia.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status401Unauthorized)]
+        [ProducesResponseType(StatusCodes.Status403Forbidden)]
         [ProducesResponseType(StatusCodes.Status500InternalServerError)]
-        public async Task<ActionResult<Resposta<object>>> ValidarTokenAsync()
+        public async Task<ActionResult<Resposta<object>>> ValidarTokenAsync([FromHeader] string recurso, [FromHeader] string acao)
         {
             try
             {
@@ -129,11 +132,21 @@ namespace Gestao_Farmacia.Controllers
                 if (string.IsNullOrEmpty(token))
                     return BadRequest(new Resposta<object>(StatusCodes.Status400BadRequest, "Token de validação não informado."));
 
-                bool retornoLogin = await _autenticacaoNegocio.ValidarTokenAsync(token);
-                if (retornoLogin)
-                    return StatusCode(StatusCodes.Status200OK, new Resposta<object>(StatusCodes.Status200OK, retornoLogin));
+                if (string.IsNullOrEmpty(recurso))
+                    return BadRequest(new Resposta<object>(StatusCodes.Status400BadRequest, "Recurso não informado."));
 
-                return StatusCode(StatusCodes.Status400BadRequest, new Resposta<object>(StatusCodes.Status400BadRequest, "Token de validação informado não é válido."));
+                if (string.IsNullOrEmpty(acao))
+                    return BadRequest(new Resposta<object>(StatusCodes.Status400BadRequest, "Ação não informada."));
+
+                bool retornoValidacaoToken = await _autenticacaoNegocio.ValidarTokenAsync(token);
+                if (!retornoValidacaoToken)
+                    return StatusCode(StatusCodes.Status401Unauthorized, new Resposta<object>(StatusCodes.Status401Unauthorized, "Não foi possível validar o token de validação informado."));
+
+                bool retornoVerificacaoPermissao = await _autenticacaoNegocio.VerificarPermissaoUsuarioAsync(token, recurso, acao);
+                if (!retornoVerificacaoPermissao)
+                    return StatusCode(StatusCodes.Status403Forbidden, new Resposta<object>(StatusCodes.Status403Forbidden, "O usuário vinculado ao token não possui permissão para acessar o recurso informado."));
+
+                return StatusCode(StatusCodes.Status200OK, new Resposta<object>(StatusCodes.Status200OK, true));
             }
             catch (NegocioException ex)
             {

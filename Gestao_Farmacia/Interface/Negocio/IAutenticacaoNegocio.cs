@@ -15,6 +15,7 @@ namespace Interface.Negocio
         #region Validação
         Task<bool> ValidarTokenExternoAsync(string token);
         Task<bool> ValidarTokenAsync(string token);
+        Task<bool> VerificarPermissaoUsuarioAsync(string token, string recurso, string acao);
         #endregion
     }
 }

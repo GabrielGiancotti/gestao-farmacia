@@ -15,13 +15,16 @@ namespace Dados.Repositorio
         private readonly IRepositorioBase<Entidade.TokenApi> _tokenApiReposBase;
         private readonly IRepositorioBase<Entidade.Usuario> _usuarioReposBase;
         private readonly IRepositorioBase<Entidade.Sessao> _sessaoReposBase;
+        private readonly IRepositorioBase<Entidade.Permissao> _permissaoReposBase;
 
-        public AutenticacaoRepositorio(GestaoFarmaciaContexto contexto, IRepositorioBase<Entidade.TokenApi> tokenApiReposBase, IRepositorioBase<Entidade.Usuario> usuarioReposBase, IRepositorioBase<Entidade.Sessao> sessaoReposBase)
+        public AutenticacaoRepositorio(GestaoFarmaciaContexto contexto, IRepositorioBase<Entidade.TokenApi> tokenApiReposBase, IRepositorioBase<Entidade.Usuario> usuarioReposBase, IRepositorioBase<Entidade.Sessao> sessaoReposBase,
+            IRepositorioBase<Entidade.Permissao> permissaoReposBase)
         {
             _contexto = contexto;
             _tokenApiReposBase = tokenApiReposBase;
             _usuarioReposBase = usuarioReposBase;
             _sessaoReposBase = sessaoReposBase;
+            _permissaoReposBase = permissaoReposBase;
         }
 
         #region Inserção
@@ -96,6 +99,35 @@ namespace Dados.Repositorio
                 var tokenValidacao = await _sessaoReposBase.BuscarFiltradoUnicoAssincrono(s => s.Chave.Equals(token) && DateTime.Now <= s.Data_Expiracao, _contexto);
                 if (tokenValidacao != null)
                     retorno = true;
+
+                return retorno;
+            }
+            catch (Exception)
+            {
+                throw;
+            }
+        }
+
+        public async Task<bool> VerificarPermissaoUsuarioAsync(string token, string recurso, string acao, object? contexto = null)
+        {
+            if (contexto != null)
+                _contexto = (GestaoFarmaciaContexto)contexto;
+
+            try
+            {
+                bool retorno = false;
+
+                var tokenValidacao = await _sessaoReposBase.BuscarFiltradoUnicoAssincrono(s => s.Chave.Equals(token) && DateTime.Now <= s.Data_Expiracao, _contexto);
+                if (tokenValidacao != null)
+                {
+                    var usuario = await _usuarioReposBase.BuscarFiltradoUnicoAssincrono(u => u.Codigo == tokenValidacao.Codigo_Usuario, _contexto);
+                    if (usuario != null)
+                    {
+                        var permissao = await _permissaoReposBase.BuscarFiltradoUnicoAssincrono(p => p.Codigo_Perfil == usuario.Codigo_Perfil && p.Recurso.Equals(recurso) && p.Acao.Equals(acao), _contexto);
+                        if (permissao != null && permissao.Permitido)
+                            retorno = true;
+                    }
+                }
 
                 return retorno;
             }

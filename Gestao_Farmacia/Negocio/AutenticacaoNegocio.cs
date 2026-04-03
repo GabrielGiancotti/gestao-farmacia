@@ -146,6 +146,23 @@ namespace Negocio
                 throw new NegocioException(ex.Message, ex);
             }
         }
+
+        public async Task<bool> VerificarPermissaoUsuarioAsync(string token, string recurso, string acao)
+        {
+            try
+            {
+                string recursoTratado = recurso.Trim().ToLower();
+                string acaoTratado = acao.Trim().ToLower();
+
+                bool resultado = await _autenticacaoRepositorio.VerificarPermissaoUsuarioAsync(token, recursoTratado, acao, _contexto);
+
+                return resultado;
+            }
+            catch (Exception ex)
+            {
+                throw new NegocioException(ex.Message, ex);
+            }
+        }
         #endregion
     }
 }
