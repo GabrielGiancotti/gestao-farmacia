@@ -33,6 +33,7 @@ namespace IOC
             services.AddScoped<IRepositorioBase<Entidade.Usuario>, RepositorioBase<Entidade.Usuario>>();
             services.AddScoped<IRepositorioBase<Entidade.Endereco>, RepositorioBase<Entidade.Endereco>>();
             services.AddScoped<IRepositorioBase<Entidade.Sessao>, RepositorioBase<Entidade.Sessao>>();
+            services.AddScoped<IRepositorioBase<Entidade.TipoMedicamento>, RepositorioBase<Entidade.TipoMedicamento>>();
             services.AddScoped<IRepositorioBase<Entidade.TokenApi>, RepositorioBase<Entidade.TokenApi>>();
             services.AddScoped<IRepositorioBase<Entidade.Perfil>, RepositorioBase<Entidade.Perfil>>();
             services.AddScoped<IRepositorioBase<Entidade.Permissao>, RepositorioBase<Entidade.Permissao>>();

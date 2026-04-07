@@ -1,7 +1,7 @@
-﻿using Aplicacao.Modelos.Criacao;
-using Aplicacao.Modelos.Resposta;
-using Aplicacao.Modelos.Resposta.Base;
+﻿using Gestao_Farmacia.Modelos.Resposta;
 using AutoMapper;
+using Gestao_Farmacia.Modelos.Criacao;
+using Gestao_Farmacia.Modelos.Atualizacao;
 
 namespace Aplicacao.Mappings
 {
@@ -13,6 +13,7 @@ namespace Aplicacao.Mappings
             CreateMap<Entidade.Usuario, Dominio.Usuario>();
             CreateMap<Entidade.Endereco, Dominio.Endereco>();
             CreateMap<Entidade.Sessao, Dominio.Sessao>();
+            CreateMap<Entidade.TipoMedicamento, Dominio.TipoMedicamento>();
             CreateMap<Entidade.TokenApi, Dominio.TokenApi>();
             CreateMap<Entidade.Perfil, Dominio.Perfil>();
             CreateMap<Entidade.Permissao, Dominio.Permissao>();
@@ -22,6 +23,7 @@ namespace Aplicacao.Mappings
             CreateMap<Dominio.Usuario, Entidade.Usuario>();
             CreateMap<Dominio.Endereco, Entidade.Endereco>();
             CreateMap<Dominio.Sessao, Entidade.Sessao>();
+            CreateMap<Dominio.TipoMedicamento, Entidade.TipoMedicamento>();
             CreateMap<Dominio.TokenApi, Entidade.TokenApi>();
             CreateMap<Dominio.Perfil, Entidade.Perfil>();
             CreateMap<Dominio.Permissao, Entidade.Permissao>();
@@ -29,16 +31,18 @@ namespace Aplicacao.Mappings
 
             #region Dominio -> Resposta
             CreateMap<Dominio.UsuarioLoginResposta, UsuarioLoginResposta>();
+            CreateMap<Dominio.TipoMedicamento, TipoMedicamentoResposta>();
             #endregion
 
             #region Criacao -> Dominio
             CreateMap<CreateUsuario, Dominio.Usuario>();
             CreateMap<CreateUsuarioExterno, Dominio.Usuario>();
             CreateMap<CreateUsuarioLogin, Dominio.UsuarioLogin>();
+            CreateMap<CreateTipoMedicamento, Dominio.TipoMedicamento>();
             #endregion
 
             #region Atualizacao -> Dominio
-
+            CreateMap<UpdateTipoMedicamento, Dominio.TipoMedicamento>();
             #endregion
         }
     }

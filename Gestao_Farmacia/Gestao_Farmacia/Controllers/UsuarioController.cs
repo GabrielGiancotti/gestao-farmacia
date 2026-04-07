@@ -1,7 +1,7 @@
-﻿using Aplicacao.Modelos.Criacao;
-using Aplicacao.Modelos.Resposta.Base;
+﻿using Gestao_Farmacia.Modelos.Resposta.Base;
 using AutoMapper;
 using Dominio.Excecoes;
+using Gestao_Farmacia.Modelos.Criacao;
 using Interface.Negocio;
 using Microsoft.AspNetCore.Mvc;
 

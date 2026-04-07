@@ -1,4 +1,4 @@
-﻿namespace Aplicacao.Modelos.Resposta
+﻿namespace Gestao_Farmacia.Modelos.Resposta
 {
     /// <summary>
     /// Classe responsável pela resposta do usuário.

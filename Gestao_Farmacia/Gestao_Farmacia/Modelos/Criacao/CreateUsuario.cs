@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Aplicacao.Modelos.Criacao
+namespace Gestao_Farmacia.Modelos.Criacao
 {
     public class CreateUsuario
     {

@@ -1,4 +1,4 @@
-﻿namespace Aplicacao.Modelos.Resposta.Base
+﻿namespace Gestao_Farmacia.Modelos.Resposta.Base
 {
     public class Resposta<T>
     {

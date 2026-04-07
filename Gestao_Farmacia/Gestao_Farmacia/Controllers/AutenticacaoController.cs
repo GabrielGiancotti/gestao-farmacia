@@ -1,12 +1,10 @@
-﻿using Aplicacao.Modelos.Criacao;
-using Aplicacao.Modelos.Resposta;
-using Aplicacao.Modelos.Resposta.Base;
+﻿using Gestao_Farmacia.Modelos.Resposta;
+using Gestao_Farmacia.Modelos.Resposta.Base;
 using AutoMapper;
 using Dominio.Excecoes;
+using Gestao_Farmacia.Modelos.Criacao;
 using Interface.Negocio;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Primitives;
 
 namespace Gestao_Farmacia.Controllers
 {
