@@ -2,7 +2,7 @@
 
 namespace Gestao_Farmacia.Modelos.Atualizacao
 {
-    public class UpdateTipoMedicamento
+    public class UpdateFormatoMedicamento
     {
         [Required(ErrorMessage = "O atributo código é obrigatório.")]
         public int Codigo { get; set; }

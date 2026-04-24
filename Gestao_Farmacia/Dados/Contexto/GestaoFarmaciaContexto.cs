@@ -55,6 +55,7 @@ namespace Dados.Contexto
         public virtual DbSet<Endereco> Endereco { get; set; }
         public virtual DbSet<Sessao> Sessao { get; set; }
         public virtual DbSet<TipoMedicamento> TipoMedicamento { get; set; }
+        public virtual DbSet<FormatoMedicamento> FormatoMedicamento { get; set; }
         public virtual DbSet<TokenApi> TokenApi { get; set; }
         public virtual DbSet<Perfil> Perfil { get; set; }
         public virtual DbSet<Permissao> Permissao { get; set; }
@@ -149,6 +150,22 @@ namespace Dados.Contexto
             modelBuilder.Entity<TipoMedicamento>(entity =>
             {
                 entity.ToTable("F005_Tipo_Medicamento");
+
+                entity.Property(e => e.Codigo).HasColumnType("int").HasColumnName("Codigo");
+                entity.HasKey("Codigo");
+                entity.Property(e => e.Descricao).HasMaxLength(250).IsUnicode(false).IsRequired().HasColumnName("Descricao");
+                entity.Property(e => e.Codigo_Usuario_Criacao).HasColumnType("int").IsRequired().HasColumnName("Codigo_Usuario_Criacao");
+                entity.Property(e => e.Data_Criacao).HasColumnType("datetime2(7)").IsRequired().HasColumnName("Data_Criacao").HasDefaultValueSql("(getdate())");
+                entity.Property(e => e.Codigo_Usuario_Modificacao).HasColumnType("int").HasColumnName("Codigo_Usuario_Modificacao");
+                entity.Property(e => e.Data_Modificacao).HasColumnType("datetime2(7)").HasColumnName("Data_Modificacao");
+                entity.Property(e => e.Codigo_Usuario_Delecao).HasColumnType("int").HasColumnName("Codigo_Usuario_Delecao");
+                entity.Property(e => e.Data_Delecao).HasColumnType("datetime2(7)").HasColumnName("Data_Delecao");
+                entity.Property(e => e.Deletado).HasColumnType("bit").HasColumnName("Deletado");
+            });
+
+            modelBuilder.Entity<FormatoMedicamento>(entity =>
+            {
+                entity.ToTable("F006_Formato_Medicamento");
 
                 entity.Property(e => e.Codigo).HasColumnType("int").HasColumnName("Codigo");
                 entity.HasKey("Codigo");

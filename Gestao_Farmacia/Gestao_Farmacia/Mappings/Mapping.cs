@@ -14,6 +14,7 @@ namespace Aplicacao.Mappings
             CreateMap<Entidade.Endereco, Dominio.Endereco>();
             CreateMap<Entidade.Sessao, Dominio.Sessao>();
             CreateMap<Entidade.TipoMedicamento, Dominio.TipoMedicamento>();
+            CreateMap<Entidade.FormatoMedicamento, Dominio.FormatoMedicamento>();
             CreateMap<Entidade.TokenApi, Dominio.TokenApi>();
             CreateMap<Entidade.Perfil, Dominio.Perfil>();
             CreateMap<Entidade.Permissao, Dominio.Permissao>();
@@ -24,6 +25,7 @@ namespace Aplicacao.Mappings
             CreateMap<Dominio.Endereco, Entidade.Endereco>();
             CreateMap<Dominio.Sessao, Entidade.Sessao>();
             CreateMap<Dominio.TipoMedicamento, Entidade.TipoMedicamento>();
+            CreateMap<Dominio.FormatoMedicamento, Entidade.FormatoMedicamento>();
             CreateMap<Dominio.TokenApi, Entidade.TokenApi>();
             CreateMap<Dominio.Perfil, Entidade.Perfil>();
             CreateMap<Dominio.Permissao, Entidade.Permissao>();
@@ -32,6 +34,7 @@ namespace Aplicacao.Mappings
             #region Dominio -> Resposta
             CreateMap<Dominio.UsuarioLoginResposta, UsuarioLoginResposta>();
             CreateMap<Dominio.TipoMedicamento, TipoMedicamentoResposta>();
+            CreateMap<Dominio.FormatoMedicamento, FormatoMedicamentoResposta>();
             #endregion
 
             #region Criacao -> Dominio
@@ -39,10 +42,12 @@ namespace Aplicacao.Mappings
             CreateMap<CreateUsuarioExterno, Dominio.Usuario>();
             CreateMap<CreateUsuarioLogin, Dominio.UsuarioLogin>();
             CreateMap<CreateTipoMedicamento, Dominio.TipoMedicamento>();
+            CreateMap<CreateFormatoMedicamento, Dominio.FormatoMedicamento>();
             #endregion
 
             #region Atualizacao -> Dominio
             CreateMap<UpdateTipoMedicamento, Dominio.TipoMedicamento>();
+            CreateMap<UpdateFormatoMedicamento, Dominio.FormatoMedicamento>();
             #endregion
         }
     }

@@ -2,7 +2,7 @@
 
 namespace Gestao_Farmacia.Modelos.Criacao
 {
-    public class CreateTipoMedicamento
+    public class CreateFormatoMedicamento
     {
         [Required(ErrorMessage = "O atributo descrição é obrigatório.")]
         [MaxLength(250, ErrorMessage = "O atributo descrição deve ter no máximo 250 caracteres.")]

@@ -17,11 +17,15 @@ namespace IOC
             #region INegocio
             services.AddScoped<IUsuarioNegocio, UsuarioNegocio>();
             services.AddScoped<IAutenticacaoNegocio, AutenticacaoNegocio>();
+            services.AddScoped<ITipoMedicamentoNegocio, TipoMedicamentoNegocio>();
+            services.AddScoped<IFormatoMedicamentoNegocio, FormatoMedicamentoNegocio>();
             #endregion
 
             #region IRepositorio
             services.AddScoped<IUsuarioRepositorio, UsuarioRepositorio>();
             services.AddScoped<IAutenticacaoRepositorio, AutenticacaoRepositorio>();
+            services.AddScoped<ITipoMedicamentoRepositorio, TipoMedicamentoRepositorio>();
+            services.AddScoped<IFormatoMedicamentoRepositorio, FormatoMedicamentoRepositorio>();
             #endregion
 
             #region IUtil
@@ -34,6 +38,7 @@ namespace IOC
             services.AddScoped<IRepositorioBase<Entidade.Endereco>, RepositorioBase<Entidade.Endereco>>();
             services.AddScoped<IRepositorioBase<Entidade.Sessao>, RepositorioBase<Entidade.Sessao>>();
             services.AddScoped<IRepositorioBase<Entidade.TipoMedicamento>, RepositorioBase<Entidade.TipoMedicamento>>();
+            services.AddScoped<IRepositorioBase<Entidade.FormatoMedicamento>, RepositorioBase<Entidade.FormatoMedicamento>>();
             services.AddScoped<IRepositorioBase<Entidade.TokenApi>, RepositorioBase<Entidade.TokenApi>>();
             services.AddScoped<IRepositorioBase<Entidade.Perfil>, RepositorioBase<Entidade.Perfil>>();
             services.AddScoped<IRepositorioBase<Entidade.Permissao>, RepositorioBase<Entidade.Permissao>>();
